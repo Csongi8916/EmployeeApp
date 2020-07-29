@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Name": "Informatics",
+    "Abbreviation": "IT",
+    "Active": true
+  },
+  {
+    "Name": "Back Office",
+    "Abbreviation": "BO",
+    "Active": true
+  },
+  {
+    "Name": "Management",
+    "Abbreviation": "MGT",
+    "Active": true
+  }
+]

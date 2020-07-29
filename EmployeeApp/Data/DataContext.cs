@@ -23,7 +23,7 @@ namespace EmployeeApp.Data
             // Self Referenced Contrains
             builder.Entity<Employee>()
                 .HasOne(e => e.Superior)
-                .WithMany(e => e.Subaltern)
+                .WithMany(e => e.Subalterns)
                 .HasForeignKey(e => e.SuperiorId);
 
             // Unique Contrains

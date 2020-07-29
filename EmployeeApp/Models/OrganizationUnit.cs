@@ -8,7 +8,12 @@ namespace EmployeeApp.Models
 {
     public class OrganizationUnit : Entity
     {
-        public int Abbreviation { get; set; }
+        public OrganizationUnit()
+        {
+            Employees = new List<Employee>();
+        }
+
+        public string Abbreviation { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
     }

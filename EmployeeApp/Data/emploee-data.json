@@ -1,0 +1,137 @@
+﻿[
+  {
+    "Identification": "001",
+    "Name": "Csenge Levente",
+    "WorkRole": "3",
+    "PhoneNumber": "+36206853467",
+    "Username": "Levente",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "002",
+    "Name": "Ödi Beatrix",
+    "WorkRole": "1",
+    "PhoneNumber": "+36206815467",
+    "Username": "Beatrix",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "003",
+    "Name": "Samu Misi",
+    "WorkRole": "3",
+    "PhoneNumber": "+3620665667",
+    "Username": "Misi",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "004",
+    "Name": "Fabó Gusztáv",
+    "WorkRole": "3",
+    "PhoneNumber": "+36206853197",
+    "Username": "Gusztáv",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "005",
+    "Name": "Zsolt Magdolna",
+    "WorkRole": "1",
+    "PhoneNumber": "+36203853467",
+    "Username": "Magdolna",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "006",
+    "Name": "Jolán Máté",
+    "WorkRole": "3",
+    "PhoneNumber": "+36306853467",
+    "Username": "Máté",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "007",
+    "Name": "Jolánka Gréta",
+    "WorkRole": "5",
+    "PhoneNumber": "+36306815467",
+    "Username": "Gréta",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "008",
+    "Name": "Izidóra Ádám",
+    "WorkRole": "3",
+    "PhoneNumber": "+3630665667",
+    "Username": "Ádám",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "009",
+    "Name": "Lukács Henrik",
+    "WorkRole": "4",
+    "PhoneNumber": "+36306853197",
+    "Username": "Henrik",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "010",
+    "Name": "Ida Nikolett",
+    "WorkRole": "6",
+    "PhoneNumber": "+36303853467",
+    "Username": "Nikolett",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "011",
+    "Name": "Jolán Nimród",
+    "WorkRole": "3",
+    "PhoneNumber": "+36706853467",
+    "Username": "Nimród",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "012",
+    "Name": "Zsolt Lajos",
+    "WorkRole": "7",
+    "PhoneNumber": "+3670665667",
+    "Username": "Lajos",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "013",
+    "Name": "György Beáta",
+    "WorkRole": "2",
+    "PhoneNumber": "+36706853467",
+    "Username": "Beáta",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "014",
+    "Name": "Patrik Alex",
+    "WorkRole": "2",
+    "PhoneNumber": "+36706853197",
+    "Username": "Alex",
+    "Password": "password",
+    "Active": true
+  },
+  {
+    "Identification": "015",
+    "Name": "Fülöp Paula",
+    "WorkRole": "0",
+    "PhoneNumber": "+36706853197",
+    "Username": "Paula",
+    "Password": "password",
+    "Active": true
+  }
+]
