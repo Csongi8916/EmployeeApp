@@ -3,6 +3,7 @@ using EmployeeApp.Repositories;
 using EmployeeApp.Repositories.Base;
 using EmployeeApp.Services.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,6 @@ namespace EmployeeApp.Services
             await _employeeRepo.DbSet.AddAsync(employee);
             var superior = await _employeeRepo.DbSet.SingleOrDefaultAsync(e => e.Id == employee.SuperiorId);
             superior.Subalterns.Add(employee);
-            await _employeeRepo.Save();
-
             var organization = await _organizationRepo.DbSet.SingleOrDefaultAsync(o => o.Id == employee.OrganizationUnitId);
             organization.Employees.Add(employee);
             await _organizationRepo.Save();
@@ -37,7 +36,7 @@ namespace EmployeeApp.Services
 
         public async Task DeleteAsync(Employee employee)
         {
-            var result = await _employeeRepo.DbSet.FindAsync(employee);
+            var result = await _employeeRepo.DbSet.Include(e => e.OrganizationUnit).SingleOrDefaultAsync(e => e.Id == employee.Id && e.Active);
             result.Active = false;
             await _employeeRepo.Save();
         }
@@ -56,9 +55,12 @@ namespace EmployeeApp.Services
 
         public async Task<Employee> UpdateAsync(Employee employee)
         {
-            var result = await _employeeRepo.DbSet.FindAsync(employee);
-            // TODO Mapping
+            var employeeEntity = await _employeeRepo.DbSet.SingleOrDefaultAsync(o => o.Id == employee.Id);
+            employeeEntity = employee;
+            var organization = await _organizationRepo.DbSet.SingleOrDefaultAsync(o => o.Id == employee.OrganizationUnitId);
+            organization.Employees.Add(employee);
             await _employeeRepo.Save();
+
             return employee;
         }
     }

@@ -12,8 +12,9 @@ namespace EmployeeApp.Dtos
         public string WorkRole { get; set; }
         public string PhoneNumber { get; set; }
         public string Username { get; set; }
+        public bool Active { get; set; }
 
-        public long SuperiorId { get; set; }
+        public long? SuperiorId { get; set; }
         public string Superior { get; set; }
         public long OrganizationUnitId { get; set; }
         public string OrganizationUnit { get; set; }

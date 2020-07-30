@@ -2,9 +2,12 @@
 using EmployeeApp.Models;
 using EmployeeApp.Models.Enums;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
@@ -45,14 +48,7 @@ namespace EmployeeApp.Data
                     var org = GetOrganizationUnit(ctx, employeeItem.WorkRole);
                     ctx.Employees.Add(employeeItem);
                     org.Employees.Add(employeeItem);
-
-                    if (employeeItem.WorkRole != WorkRole.CEO)
-                    {
-                        var superior = GetSuperior(ctx, employeeItem.WorkRole);
-                        employeeItem.Superior = superior;
-                    }
                 }
-
                 ctx.SaveChanges();
             }
         }

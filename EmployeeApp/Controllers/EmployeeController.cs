@@ -43,7 +43,7 @@ namespace EmployeeApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTodo(EmployeeDetailDto employeeDetailDto)
+        public async Task<IActionResult> CreateEmployee(EmployeeDetailDto employeeDetailDto)
         {
             var employee = _mapper.Map<Employee>(employeeDetailDto);
             await _service.AddAsync(employee);
@@ -51,11 +51,25 @@ namespace EmployeeApp.Controllers
             return StatusCode(201);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTodo(long id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployee(long id, EmployeeDetailDto employeeDetailDto)
         {
             var employee = await _service.GetByIdAsync(id);
-            if (employee == null)
+
+            if (employee == null || !employee.Active)
+                return NotFound();
+
+            _mapper.Map(employeeDetailDto, employee);
+            await _service.UpdateAsync(employee);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployee(long id)
+        {
+            var employee = await _service.GetByIdAsync(id);
+
+            if (employee == null || !employee.Active)
                 return NotFound();
 
             await _service.DeleteAsync(employee);
