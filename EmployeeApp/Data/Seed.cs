@@ -1,4 +1,5 @@
-﻿using EmployeeApp.Models;
+﻿using EmployeeApp.Exceptions;
+using EmployeeApp.Models;
 using EmployeeApp.Models.Enums;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Newtonsoft.Json;
@@ -44,6 +45,12 @@ namespace EmployeeApp.Data
                     var org = GetOrganizationUnit(ctx, employeeItem.WorkRole);
                     ctx.Employees.Add(employeeItem);
                     org.Employees.Add(employeeItem);
+
+                    if (employeeItem.WorkRole != WorkRole.CEO)
+                    {
+                        var superior = GetSuperior(ctx, employeeItem.WorkRole);
+                        employeeItem.Superior = superior;
+                    }
                 }
 
                 ctx.SaveChanges();
@@ -70,7 +77,31 @@ namespace EmployeeApp.Data
                 return ctx.OrganizationUnits.SingleOrDefault(o => o.Abbreviation == "BO");
             }
 
-            throw new Exception("Invalid WorkRole!");
+            throw new InvalidWorkRoleException(workRole.ToString());
+        }
+
+        private static Employee GetSuperior(DataContext ctx, WorkRole workRole)
+        {
+            if (WorkRole.BusinessAnalyst == workRole
+                || WorkRole.TeamLeader == workRole
+                || WorkRole.HumanResourceManager == workRole
+                || WorkRole.ProjectManager == workRole
+                || WorkRole.OfficeAssistant == workRole)
+            {
+                return ctx.Employees.SingleOrDefault(e => e.WorkRole == WorkRole.CEO);
+            }
+            else if (WorkRole.SoftwareTester == workRole
+                || WorkRole.SoftwareEngineer == workRole)
+            {
+                return ctx.Employees.SingleOrDefault(e => e.WorkRole == WorkRole.TeamLeader);
+            }
+            else if (WorkRole.CEO == workRole)
+            {
+                throw new CeoSuperiorException();
+            }
+
+            throw new InvalidWorkRoleException(workRole.ToString());
+
         }
     }
 }
