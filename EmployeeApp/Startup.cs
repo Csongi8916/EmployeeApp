@@ -30,6 +30,7 @@ namespace EmployeeApp
             services.AddControllersWithViews();
             services.AddAutoMapper(typeof(EmployeeRepository).Assembly);
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
 
             // In production, the Angular files will be served from this directory

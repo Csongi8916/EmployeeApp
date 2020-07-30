@@ -20,20 +20,28 @@ namespace EmployeeApp.Models.Enums
 
     static class WorkRoleExtensions
     {
-        public static string GetWorkRoleTitle(this WorkRole workRole)
+        static readonly Dictionary<WorkRole, string> WorkRoleTitles;
+
+        static WorkRoleExtensions() {
+            WorkRoleTitles = new Dictionary<WorkRole, string>();
+            WorkRoleTitles.Add(WorkRole.HumanResourceManager, "HR munkatárs");
+            WorkRoleTitles.Add(WorkRole.OfficeAssistant, "Irodai munkatárs");
+            WorkRoleTitles.Add(WorkRole.SoftwareTester, "Szoftvertesztelő");
+            WorkRoleTitles.Add(WorkRole.SoftwareEngineer, "Szoftverfejlesztő");
+            WorkRoleTitles.Add(WorkRole.TeamLeader, "Fejlesztési vezető");
+            WorkRoleTitles.Add(WorkRole.BusinessAnalyst, "Üzleti elemző");
+            WorkRoleTitles.Add(WorkRole.ProjectManager, "Projekt menedzser");
+            WorkRoleTitles.Add(WorkRole.CEO, "Ügyvezető igazgató");
+        }
+
+        public static string GetTitleFromWorkRole(this WorkRole workRole)
         {
-            switch (workRole)
-            {
-                case WorkRole.HumanResourceManager: return "HR munkatárs";
-                case WorkRole.OfficeAssistant: return "HR munkatárs";
-                case WorkRole.SoftwareTester: return "HR munkatárs";
-                case WorkRole.SoftwareEngineer: return "HR munkatárs";
-                case WorkRole.TeamLeader: return "HR munkatárs";
-                case WorkRole.BusinessAnalyst: return "HR munkatárs";
-                case WorkRole.ProjectManager: return "HR munkatárs";
-                case WorkRole.CEO: return "HR munkatárs";
-                default: throw new InvalidWorkRoleException(workRole.ToString());
-            }
+            return WorkRoleTitles[workRole];
+        }
+
+        public static WorkRole GetWorkRoleFromTitle(this string title)
+        {
+            return WorkRoleTitles.FirstOrDefault(x => x.Value == title).Key;
         }
     }
 }

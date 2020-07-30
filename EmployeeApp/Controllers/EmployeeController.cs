@@ -41,5 +41,26 @@ namespace EmployeeApp.Controllers
             var employeeDto= _mapper.Map<EmployeeDetailDto>(employee);
             return Ok(employeeDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTodo(EmployeeDetailDto employeeDetailDto)
+        {
+            var employee = _mapper.Map<Employee>(employeeDetailDto);
+            await _service.AddAsync(employee);
+            // TODO Error handling!
+            return StatusCode(201);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodo(long id)
+        {
+            var employee = await _service.GetByIdAsync(id);
+            if (employee == null)
+                return NotFound();
+
+            await _service.DeleteAsync(employee);
+            // TODO handling
+            return Ok();
+        }
     }
 }
