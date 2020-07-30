@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeApp.Repositories.Base
+namespace EmployeeApp.Services.Base
 {
-    public interface IEmployeeRepository : IRepositry<Employee>
+    public interface IEmployeeService : ILogicService<Employee>
     {
     }
 }

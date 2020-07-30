@@ -1,6 +1,9 @@
+using AutoMapper;
 using EmployeeApp.Data;
 using EmployeeApp.Repositories;
 using EmployeeApp.Repositories.Base;
+using EmployeeApp.Services;
+using EmployeeApp.Services.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -25,8 +28,9 @@ namespace EmployeeApp
         {
             services.AddDbContext<DataContext>(ctx => ctx.UseSqlServer(@"Server=.\SQLEXPRESS;Database=EmpolyeeAppDB;Trusted_Connection=True;"));
             services.AddControllersWithViews();
-
+            services.AddAutoMapper(typeof(EmployeeRepository).Assembly);
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

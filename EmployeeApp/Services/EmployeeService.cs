@@ -1,5 +1,6 @@
 ﻿using EmployeeApp.Models;
 using EmployeeApp.Repositories;
+using EmployeeApp.Repositories.Base;
 using EmployeeApp.Services.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeApp.Services
 {
-    public class EmployeeService : ILogicService<Employee>
+    public class EmployeeService : IEmployeeService
     {
-        private readonly EmployeeRepository _repo;
-        public EmployeeService(EmployeeRepository repo)
+        private readonly IEmployeeRepository _repo;
+        public EmployeeService(IEmployeeRepository repo)
         {
             _repo = repo;
         }
@@ -34,12 +35,13 @@ namespace EmployeeApp.Services
 
         public async Task<Employee> GetByIdAsync(long id)
         {
-            return await _repo.DbSet.SingleOrDefaultAsync(e => e.Id == id && e.Active);
+            var employee = await _repo.DbSet.Include(e => e.OrganizationUnit).SingleOrDefaultAsync(e => e.Id == id && e.Active);
+            return employee;
         }
 
         public async Task<IQueryable<Employee>> Query(Expression<Func<Employee, bool>> predicate)
         {
-            var employees = await _repo.DbSet.Where(predicate).ToListAsync();
+            var employees = await _repo.DbSet.Include(e => e.OrganizationUnit).Where(predicate).ToListAsync();
             return employees.AsQueryable();
         }
 
