@@ -7,6 +7,7 @@ namespace EmployeeApp.Dtos
 {
     public class EmployeeListDto
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public string WorkRole { get; set; }
         public string PhoneNumber { get; set; }

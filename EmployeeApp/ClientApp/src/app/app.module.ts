@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+import { appRoutes } from './routes';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
+import { EmployeeResolver } from './resolvers/employee-list.resolver';
 
 @NgModule({
   declarations: [AppComponent, NavMenuComponent, EmployeeListComponent],
@@ -14,9 +16,9 @@ import { EmployeeListComponent } from './employee/employee-list/employee-list.co
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([{ path: '', component: EmployeeListComponent, pathMatch: 'full' }]),
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [EmployeeResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
