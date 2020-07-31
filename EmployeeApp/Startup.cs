@@ -1,5 +1,6 @@
 using AutoMapper;
 using EmployeeApp.Data;
+using EmployeeApp.Helpers;
 using EmployeeApp.Repositories;
 using EmployeeApp.Repositories.Base;
 using EmployeeApp.Services;
@@ -32,6 +33,7 @@ namespace EmployeeApp
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IDataBuildHelper, DataBuildHelper>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

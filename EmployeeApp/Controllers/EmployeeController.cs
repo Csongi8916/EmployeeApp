@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmployeeApp.Dtos;
+using EmployeeApp.Helpers;
 using EmployeeApp.Models;
 using EmployeeApp.Services.Base;
 using Microsoft.AspNetCore.Http;
@@ -17,12 +19,14 @@ namespace EmployeeApp.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _service;
+        private readonly IDataBuildHelper _dataBuildHelper;
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService service, IMapper mapper)
+        public EmployeeController(IEmployeeService service, IMapper mapper, IDataBuildHelper dataBuildHelper)
         {
             _service = service;
             _mapper = mapper;
+            _dataBuildHelper = dataBuildHelper;
         }
 
         [HttpGet]
@@ -35,17 +39,32 @@ namespace EmployeeApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployee(long id)
+        public async Task<IActionResult> GetEmployee(long id, [FromQuery]EmployeeParams employeeParams)
         {
             var employee = await _service.GetByIdAsync(id);
-            var employeeDto= _mapper.Map<EmployeeDetailDto>(employee);
-            return Ok(employeeDto);
+
+            if (employeeParams.OperationStatus[employeeParams.GetOperationIndex] == employeeParams.Mode)
+            {
+                var employeeDto = _mapper.Map<EmployeeDetailDto>(employee);
+                return Ok(employeeDto);
+            }
+            else
+            {
+                EmployeeEditDto employeeEditDto;
+                if (employeeParams.OperationStatus[employeeParams.CreateOperationIndex] == employeeParams.Mode)
+                    employeeEditDto = new EmployeeEditDto();
+                else
+                    employeeEditDto = _mapper.Map<EmployeeEditDto>(employee);
+
+                await _dataBuildHelper.GetAdditionalData(employeeEditDto);
+                return Ok(employeeEditDto);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEmployee(EmployeeDetailDto employeeDetailDto)
+        public async Task<IActionResult> CreateEmployee(EmployeeEditDto employeeEditDto)
         {
-            var employee = _mapper.Map<Employee>(employeeDetailDto);
+            var employee = _mapper.Map<Employee>(employeeEditDto);
             await _service.AddAsync(employee);
             // TODO Error handling!
             return StatusCode(201);

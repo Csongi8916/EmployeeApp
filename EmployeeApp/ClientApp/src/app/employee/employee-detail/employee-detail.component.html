@@ -1,3 +1,36 @@
-<p>
-  employee-detail works!
-</p>
+<div class="container mt-4">
+  <div class="col-sm-4">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <td><span class="title">Név</span></td>
+          <td>{{ employee.name }}</td>
+        </tr>
+        <tr>
+          <td><span class="title">Felhasználónév</span></td>
+          <td>{{ employee.username }}</td>
+        </tr>
+        <tr>
+          <td><span class="title">Azonosító</span></td>
+          <td>{{ employee.identification }}</td>
+        </tr>
+        <tr>
+          <td><span class="title">Beosztás</span></td>
+          <td>{{ employee.workRole }}</td>
+        </tr>
+        <tr>
+          <td><span class="title">Szervezeti egység</span></td>
+          <td>{{ employee.organizationUnit }} ({{ employee.organizationUnitAbbreviation }})</td>
+        </tr>
+        <tr>
+          <td><span class="title">Felettes</span></td>
+          <td>{{ employee.superior }}</td>
+        </tr>
+        <tr>
+          <td><span class="title">Felettes</span></td>
+          <td>{{ employee.phoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

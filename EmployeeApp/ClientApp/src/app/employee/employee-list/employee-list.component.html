@@ -2,7 +2,7 @@
   <div class="clearfix mb-3">
     <div class="float-left">
       <button class="btn btn-primary btn-create" [routerLink]="['/create']">
-        Új Todo
+        <span class="symbol">&#x2B;</span>Új Dolgozó
       </button>
     </div>
   </div>
@@ -33,12 +33,12 @@
                 </li>
                 <li class="list-inline-item">
                   <button class="btn btn-warning" [routerLink]="['/edit', employee.id]">
-                    Módosít
+                    <span class="symbol">&#x270E;</span>Módosít
                   </button>
                 </li>
                 <li class="list-inline-item">
-                  <button class="btn btn-danger" (click)="deleteEmployee()">
-                    Törlés
+                  <button class="btn btn-danger" id="{{ employee.id }}" (click)="deleteEmployee($event)">
+                    <span class="symbol">&#120;</span>Törlés
                   </button>
                 </li>
               </ul>

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Organization } from 'src/app/models/organization';
 
 @Component({
-  selector: 'app-employee-edit',
-  templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.css'],
+  selector: 'app-employee-create',
+  templateUrl: './employee-create.component.html',
+  styleUrls: ['./employee-create.component.css'],
 })
-export class EmployeeEditComponent implements OnInit {
+export class EmployeeCreateComponent implements OnInit {
   employee: Employee;
   superiors: Employee[];
   organizations: Organization[];
+  isUpdated: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private employeeService: EmployeeService) {}
 
@@ -22,9 +23,10 @@ export class EmployeeEditComponent implements OnInit {
       this.superiors = data['employee'].superiors;
       this.organizations = data['employee'].organizationUnits;
     });
+    this.isUpdated = false;
   }
 
-  updateEmployee(event: any) {
+  createEmployee(event: any) {
     if (event.name !== null && event.name !== undefined) {
       this.employee.id = event.id;
       this.employee.identification = event.identification;
@@ -38,9 +40,9 @@ export class EmployeeEditComponent implements OnInit {
       this.employee.organizationUnitId = event.organizationUnitId;
     }
 
-    this.employeeService.updateEmployee(this.employee.id, this.employee).subscribe(
+    this.employeeService.createEmployee(this.employee).subscribe(
       (next) => {
-        console.log('Employee updated successfully!');
+        console.log('Employee created successfully!');
         this.router.navigate(['/']);
       },
       (error) => {

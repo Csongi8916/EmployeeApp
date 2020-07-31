@@ -1,4 +1,5 @@
-﻿using EmployeeApp.Exceptions;
+﻿using EmployeeApp.Dtos;
+using EmployeeApp.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,11 @@ namespace EmployeeApp.Models.Enums
         public static WorkRole GetWorkRoleFromTitle(this string title)
         {
             return WorkRoleTitles.FirstOrDefault(x => x.Value == title).Key;
+        }
+
+        public static string[] GetWorkRoleTitles(this WorkRole workRole)
+        {
+            return WorkRoleTitles.Values.ToArray();
         }
     }
 }

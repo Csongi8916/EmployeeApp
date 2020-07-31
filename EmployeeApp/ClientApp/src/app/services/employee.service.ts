@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 
@@ -16,8 +16,11 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.baseUrl + 'employee');
   }
 
-  getEmployee(id: string): Observable<Employee> {
-    return this.http.get<Employee>(this.baseUrl + 'employee/' + id);
+  getEmployee(id: string, mode: string): Observable<Employee> {
+    let params = new HttpParams();
+    params = params.append('mode', mode);
+
+    return this.http.get<Employee>(this.baseUrl + 'employee/' + id, { params });
   }
 
   updateEmployee(id: string, employee: Employee) {

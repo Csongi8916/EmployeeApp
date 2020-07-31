@@ -11,17 +11,28 @@ import { EmployeeListComponent } from './employee/employee-list/employee-list.co
 import { EmployeeListResolver } from './resolvers/employee-list.resolver';
 import { EmployeeDetailComponent } from './employee/employee-detail/employee-detail.component';
 import { EmployeeEditComponent } from './employee/employee-edit/employee-edit.component';
-import { EmployeeResolver } from './resolvers/employee.resolver';
+import { EmployeeEditResolver } from './resolvers/employee.edit.resolver';
+import { EmployeeCreateComponent } from './employee/employee-create/employee-create.component';
+import { EmployeeEditorComponent } from './employee/employee-editor/employee-editor.component';
+import { EmployeeCreateResolver } from './resolvers/employee.create.resolver';
 
 @NgModule({
-  declarations: [AppComponent, NavMenuComponent, EmployeeListComponent, EmployeeDetailComponent, EmployeeEditComponent],
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    EmployeeListComponent,
+    EmployeeDetailComponent,
+    EmployeeEditComponent,
+    EmployeeCreateComponent,
+    EmployeeEditorComponent,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [EmployeeListResolver, EmployeeResolver],
+  providers: [EmployeeListResolver, EmployeeEditResolver, EmployeeCreateResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
