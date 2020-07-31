@@ -19,5 +19,7 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  deleteEmployee() {}
+  deleteEmployee() {
+    alert('Törlés!');
+  }
 }

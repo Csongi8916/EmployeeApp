@@ -16,19 +16,19 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.baseUrl + 'employee');
   }
 
-  getTodo(id: string): Observable<Employee> {
+  getEmployee(id: string): Observable<Employee> {
     return this.http.get<Employee>(this.baseUrl + 'employee/' + id);
   }
 
-  updateTodo(id: string, employee: Employee) {
+  updateEmployee(id: string, employee: Employee) {
     return this.http.put(this.baseUrl + 'employee/' + id, employee);
   }
 
-  createTodo(employee: Employee) {
+  createEmployee(employee: Employee) {
     return this.http.post(this.baseUrl + 'employee/', employee);
   }
 
-  deleteTodo(id: number) {
+  deleteEmployee(id: number) {
     return this.http.delete(this.baseUrl + 'employee/' + id);
   }
 }
