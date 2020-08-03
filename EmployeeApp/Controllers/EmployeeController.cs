@@ -64,10 +64,15 @@ namespace EmployeeApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployee(EmployeeEditDto employeeEditDto)
         {
+            employeeEditDto.Active = true;
             var employee = _mapper.Map<Employee>(employeeEditDto);
-            await _service.AddAsync(employee);
-            // TODO Error handling!
-            return StatusCode(201);
+            var addedEmployee = await _service.AddAsync(employee);
+            
+            if (addedEmployee != null)
+                return StatusCode(201);
+            else
+                return BadRequest();
+
         }
 
         [HttpPut("{id}")]
@@ -79,8 +84,12 @@ namespace EmployeeApp.Controllers
                 return NotFound();
 
             _mapper.Map(employeeDetailDto, employee);
-            await _service.UpdateAsync(employee);
-            return NoContent();
+            var updatedEmployee = await _service.UpdateAsync(employee);
+
+            if (updatedEmployee != null)
+                return NoContent();
+            else
+                return BadRequest();
         }
 
         [HttpDelete("{id}")]
@@ -92,7 +101,6 @@ namespace EmployeeApp.Controllers
                 return NotFound();
 
             await _service.DeleteAsync(employee);
-            // TODO handling
             return Ok();
         }
     }

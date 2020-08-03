@@ -9,13 +9,20 @@
       <input type="password" class="form-control mb-4" name="password" [(ngModel)]="employee.password" />
       <label for="identification">Azonosító</label>
       <input type="number" class="form-control mb-4" name="identification" [(ngModel)]="employee.identification" />
-      <label for="username">Beosztás</label>
-      <input type="text" class="form-control mb-4" name="username" [(ngModel)]="employee.workRole" />
+      <label for="phonenumber">Telefonszám</label>
+      <input type="text" class="form-control mb-4" name="phonenumber" [(ngModel)]="employee.phoneNumber" />
+      <label for="workrole">Beosztás</label>
+      <input type="text" class="form-control mb-4" name="workrole" [(ngModel)]="employee.workRole" />
 
       <div class="form-group">
         <label for="superior">Felettes:</label>
-        <select class="form-control" name="superior" [(ngModel)]="selectedEmployee">
-          <option *ngFor="let superior of superiors" value="{{ superior.id }}">{{ superior.name }}</option>
+        <select #superiorSelect class="form-control" name="superior" [(ngModel)]="selectedEmployee">
+          <option
+            *ngFor="let superior of superiors"
+            value="{{ superior.id }}"
+            [selected]="superior.name === employee.name"
+            >{{ superior.name }}</option
+          >
         </select>
       </div>
       <div class="form-group">

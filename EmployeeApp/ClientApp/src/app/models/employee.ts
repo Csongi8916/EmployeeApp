@@ -4,11 +4,11 @@ export interface Employee {
   username: string;
   password: string;
   identification: number;
-  superiorId: string;
+  superiorId: number;
   superior: string;
   workRole: string;
   phoneNumber: string;
-  organizationUnitId: string;
+  organizationUnitId: number;
   organizationUnit: string;
   organizationUnitAbbreviation: string;
 }

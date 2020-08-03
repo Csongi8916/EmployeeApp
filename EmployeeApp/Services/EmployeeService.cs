@@ -1,7 +1,9 @@
 ﻿using EmployeeApp.Models;
+using EmployeeApp.Models.Bases;
 using EmployeeApp.Repositories;
 using EmployeeApp.Repositories.Base;
 using EmployeeApp.Services.Base;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
@@ -29,9 +31,12 @@ namespace EmployeeApp.Services
             superior.Subalterns.Add(employee);
             var organization = await _organizationRepo.DbSet.SingleOrDefaultAsync(o => o.Id == employee.OrganizationUnitId);
             organization.Employees.Add(employee);
-            await _organizationRepo.Save();
+            bool isSuccess = await _employeeRepo.Save();
 
-            return employee;
+            if (isSuccess)
+                return employee;
+            else
+                return null;
         }
 
         public async Task DeleteAsync(Employee employee)
@@ -43,7 +48,11 @@ namespace EmployeeApp.Services
 
         public async Task<Employee> GetByIdAsync(long id)
         {
-            var employee = await _employeeRepo.DbSet.Include(e => e.OrganizationUnit).SingleOrDefaultAsync(e => e.Id == id && e.Active);
+            var employee = await _employeeRepo.DbSet
+                .Include(e => e.OrganizationUnit)
+                .Include(e => e.Superior)
+                .SingleOrDefaultAsync(e => e.Id == id && e.Active);
+
             return employee;
         }
 
@@ -59,9 +68,12 @@ namespace EmployeeApp.Services
             employeeEntity = employee;
             var organization = await _organizationRepo.DbSet.SingleOrDefaultAsync(o => o.Id == employee.OrganizationUnitId);
             organization.Employees.Add(employee);
-            await _employeeRepo.Save();
+            bool isSuccess = await _employeeRepo.Save();
 
-            return employee;
+            if (isSuccess)
+                return employee;
+            else
+                return null;
         }
     }
 }

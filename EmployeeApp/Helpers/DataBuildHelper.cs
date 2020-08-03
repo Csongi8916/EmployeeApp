@@ -22,7 +22,7 @@ namespace EmployeeApp.Helpers
 
         public async Task GetAdditionalData(EmployeeEditDto employeeEditDto)
         {
-            var employees = (await _employeeService.Query(e => true)).ToList();
+            var employees = (await _employeeService.Query(e => e.Active)).ToList();
             List<SelectEntity> selectEmployees = GetData<Employee>(employees);
             employeeEditDto.Superiors = selectEmployees;
 
